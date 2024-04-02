@@ -12,6 +12,9 @@
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
 
+float temperaturamax=78;
+float humitatmax=80;
+
 #define oled 32
 Adafruit_SSD1306 display = Adafruit_SSD1306(128, oled, &Wire);
 
@@ -64,11 +67,11 @@ void loop() {
   // Imprime en la pantalla OLED
   display.clearDisplay();
   display.setCursor(0, 0);
-  if (temperature >= 78) {
+  if (temperature >= temperaturamax) {
     display.print("La temperatura de la sala del servidor es muy elevada");
     display.display();
     enviarMensajeTelegram("Temperatura alta: " + String(temperatureChar));
-  } else if (humidity >= 80) {
+  } else if (humidity >= humitatmax) {
     display.print("La humedad de la sala del servidor es muy alta");
     display.display();
     enviarMensajeTelegram("Humedad alta: " + String(humidityChar));
